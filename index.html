@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changer le nom du bouton</title>
+    <script>
+        function changeBoutonText() {
+            // Récupérer la zone de texte et le bouton
+            var textInput = document.getElementById('inputText');
+            var button = document.getElementById('changeBouton');
+            
+            // Mettre le contenu de la zone de texte comme nom du bouton
+            button.innerHTML = textInput.value;
+            
+            // Vider la zone de texte
+            textInput.value = '';
+        }
+    </script>
+</head>
+<body>
+    <h2>Changer le nom du bouton</h2>
+    <input type="text" id="inputText" placeholder="Entrez du texte">
+    <button id="changeBouton" onclick="changeBoutonText()">Cliquez ici</button>
+</body>
+</html>
