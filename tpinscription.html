@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Création de Compte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('https://cdn.pixabay.com/photo/2018/04/09/14/33/abstract-3304213_640.png'); /* Remplacez l'URL par celle de votre image */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent pour que le formulaire reste lisible */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Formulaire de Création de Compte</h2>
+
+        <!-- Formulaire avec méthode POST et redirection vers page "success.html" -->
+        <form id="signupForm" method="POST" action="success.html" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" id="nom" name="nom">
+                <div id="nomError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenom" name="prenom">
+                <div id="prenomError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mail">Email :</label>
+                <input type="email" id="mail" name="mail">
+                <div id="mailError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="pseudo">Pseudo :</label>
+                <input type="text" id="pseudo" name="pseudo">
+                <div id="pseudoError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password">
+                <div id="passwordError" class="error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmer le mot de passe :</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+                <div id="confirmPasswordError" class="error"></div>
+            </div>
+
+            <button type="submit">Créer un compte</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            // Réinitialisation des messages d'erreur
+            document.getElementById('nomError').innerHTML = '';
+            document.getElementById('prenomError').innerHTML = '';
+            document.getElementById('mailError').innerHTML = '';
+            document.getElementById('pseudoError').innerHTML = '';
+            document.getElementById('passwordError').innerHTML = '';
+            document.getElementById('confirmPasswordError').innerHTML = '';
+
+            let isValid = true;
+
+            // Récupération des valeurs des champs
+            let nom = document.getElementById('nom').value;
+            let prenom = document.getElementById('prenom').value;
+            let mail = document.getElementById('mail').value;
+            let pseudo = document.getElementById('pseudo').value;
+            let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validation du nom
+            if (nom === '') {
+                document.getElementById('nomError').innerHTML = 'Le nom est requis.';
+                isValid = false;
+            }
+
+            // Validation du prénom
+            if (prenom === '') {
+                document.getElementById('prenomError').innerHTML = 'Le prénom est requis.';
+                isValid = false;
+            }
+
+            // Validation de l'email
+            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(mail)) {
+                document.getElementById('mailError').innerHTML = 'Veuillez entrer une adresse e-mail valide.';
+                isValid = false;
+            }
+
+            // Validation du pseudo
+            if (pseudo === '') {
+                document.getElementById('pseudoError').innerHTML = 'Le pseudo est requis.';
+                isValid = false;
+            }
+
+            // Validation du mot de passe
+            if (password.length < 6) {
+                document.getElementById('passwordError').innerHTML = 'Le mot de passe doit contenir au moins 6 caractères.';
+                isValid = false;
+            }
+
+            // Validation de la confirmation du mot de passe
+            if (confirmPassword !== password) {
+                document.getElementById('confirmPasswordError').innerHTML = 'Les mots de passe ne correspondent pas.';
+                isValid = false;
+            }
+
+            // Empêcher la soumission si le formulaire est invalide
+            return isValid;
+        }
+    </script>
+
+</body>
+</html>
